@@ -37,11 +37,12 @@ youth <- filter(gun_deaths, age <= 65)
 summary(youth)
 ```
 
+Individuals killed by guns who are older than 65:
 ```{r, echo = FALSE}
 #echo = FALSE prevents code, but not the results from appearing in the finished file. Use this when writing reports aimed at people who don’t want to see the underlying R code.
 
-youth_dist <- nrow(gun_deaths) - nrow(youth)
-
+youth_dist <- (nrow(gun_deaths) - nrow(youth))
+youth_dist
 ```
 
 ## R Markdown
