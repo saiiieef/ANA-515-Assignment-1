@@ -1,0 +1,67 @@
+---
+title: "ANA 515 Assignment 1"
+author: "Saif Hossain"
+date: "2022-09-01"
+output:
+  html_document:
+    theme:
+      bootswatch: "darkly"
+---
+
+```{r, echo = FALSE}
+
+#echo = FALSE prevents code, but not the results from appearing in the finished file. Use this when writing reports aimed at people who don’t want to see the underlying R code.
+
+url <- "https://raw.githubusercontent.com/fivethirtyeight/guns-data/master/full_data.csv"
+
+gun_deaths <- read.csv(url)
+
+```
+
+```{r setup, include = FALSE}
+#The include = FALSE function hides both the code and output in my output document
+
+#You need to install these packages first to be able to use the functions within them. You can install them from the Tools tab or write a new code chunk: install.packages("package_name"). 
+library(tidyverse)
+library(knitr)
+library(bslib)
+```
+
+```{r, echo = FALSE}
+#echo = FALSE prevents code, but not the results from appearing in the finished file. Use this when writing reports aimed at people who don’t want to see the underlying R code.
+youth <- filter(gun_deaths, age <= 65)
+```
+
+```{r youth, include = FALSE}
+#The include = FALSE function hides both the code and output in my output document
+summary(youth)
+```
+
+```{r, echo = FALSE}
+#echo = FALSE prevents code, but not the results from appearing in the finished file. Use this when writing reports aimed at people who don’t want to see the underlying R code.
+
+youth_dist <- nrow(gun_deaths) - nrow(youth)
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r youth-dist, echo=FALSE}
+youth %>%
+  ggplot(aes(age)) + geom_freqpoly(binwidth = 1)
+```
+
+```{r race-dist, echo=FALSE}
+youth %>%
+  ggplot(aes(fct_infreq(race) %>% fct_rev())) + geom_bar() + coord_flip() + labs(x= "Victim race")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
